@@ -1,6 +1,6 @@
 import lejos.hardware.motor.Motor;
 
-public class pickuppizza {
+public class pickUpPizza {
 	
 	public static double[] main(int pizza_side, int turn_90_angle);
 	//assume robot is ready to begin picking up pizza
