@@ -10,6 +10,7 @@ import lejos.hardware.lcd.*;
 public class drivetopizza
 {
 	public double[] get_pizza_cords(double[] pizzaCoords, int y_rotate_angle, int x_rotate_angle, int pizza_side, int turn_90_angle, double conversion_angle)
+	{
 	// assume that the robot is facing forward at origin
 	// pizzaCoords[x, y] contains x and y coordinates of robot on map
 	// y_rotate_angle: angle to rotoate motors to drive to y coordinate of pizza
@@ -18,7 +19,6 @@ public class drivetopizza
 	// turn_90_angle: angle of motor rotation to turn the robot 90 degrees
 	// conversion_angle: conversion from motor rotation angle to distance travelled by motor
 	// returns robot coordinates and robot facing left or right
-	{
 		// Initiate Sensors/Motors
 //		static EV3UltrasonicSensor ultrasonic = new EV3UltrasonicSensor(SensorPort.S1);
 //		static EV3ColorSensor color = new EV3ColorSensor(SensorPort.S2);
@@ -28,34 +28,35 @@ public class drivetopizza
 		angle_intitial[0] = Motor.B.getTachoCount(); //initial angle position of motors	
 		angle_intitial[1] = Motor.C.getTachoCount();
 		rotatemotor(y_rotate_angle); // move to y coordinate of pizza
-		pizzaCoords[1] += distance_motor_travlled(angle_intitial, conversion_angle); //update y coordinate
+	//	pizzaCoords[1] += distance_motor_travlled(angle_intitial, conversion_angle); //update y coordinate
 		turn_robot(pizza_side, turn_90_angle); // turn robot to face correct pizza
-		angle_intitial[0] = Motor.B.getTachoCount();
-		angle_intitial[1] = Motor.C.getTachoCount(); //intial angle position of motors	
-		rotatemotor(x_rotate_angle);	//move to x coordinate of pizza
-		pizzaCoords[0] += distance_motor_travlled(angle_intitial, conversion_angle); //update x coordinate
+//		angle_intitial[0] = Motor.B.getTachoCount();
+//		angle_intitial[1] = Motor.C.getTachoCount(); //intial angle position of motors	
+//		rotatemotor(x_rotate_angle);	//move to x coordinate of pizza
+//		pizzaCoords[0] += distance_motor_travlled(angle_intitial, conversion_angle); //update x coordinate
 		return pizzaCoords;
 	}
 	
 	public void turn_robot(int turn, int turn_90_angle)
-	//turns robot given turn direction
 	{
-		if (turn == -1) //turn left
-		{
-			Motor.B.rotateTo(turn_90_angle, true); 
-			Motor.C.rotateTo(-turn_90_angle);
-		}
-		else //turn right
-		{
-			Motor.B.rotateTo(-turn_90_angle, true); 
-			Motor.C.rotateTo(turn_90_angle);			
-		}
-		return;
+		Motor.B.rotateTo(turn_90_angle, true); 
+		Motor.C.rotateTo(-turn_90_angle);
+		//turns robot given turn direction		
+//		if (turn == -1) //turn left
+//		{
+//			Motor.B.rotateTo(turn_90_angle, true); 
+//			Motor.C.rotateTo(-turn_90_angle);
+//		}
+//		else //turn right
+//		{			
+//			Motor.B.rotateTo(-turn_90_angle, true); 
+//			Motor.C.rotateTo(turn_90_angle);			
+//		}
 	}
 
 	public double distance_motor_travlled(int[] angle_intitial, double conversion_angle)
-	// calcuates the distance the robot has travelled
 	{
+		// calcuates the distance the robot has travelled		
 		int[] angle_change = new int[2]; //change in angle after driving motors
 		double average_angle_change; //average angle change between two motors
 		double distance_travelled; //distance robot has travelled
@@ -70,7 +71,6 @@ public class drivetopizza
 	{
 		Motor.B.rotateTo(angle, true); 
 		Motor.C.rotateTo(angle);
-		return;
 	}
 }
 	

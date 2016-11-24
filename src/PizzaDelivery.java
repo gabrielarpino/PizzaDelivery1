@@ -1,3 +1,4 @@
+import lejos.hardware.Button;
 import lejos.hardware.motor.Motor;
 //import lejos.hardware.Button;
 //import lejos.hardware.motor.EV3RegulatedMotor;
@@ -80,13 +81,12 @@ public class PizzaDelivery {
 	public static void main(String[] args) {
 		//gatherinfo();
 		//delivery.deliver();
-		
 		System.out.println("Input info.");
 		gatherinfo();
 //		turntofacehouse(side);
 		double [] location = new double[2];
 		location[0] = 0;
 		location[1] = 0;
-		driveToLocation(location,  90,  90,  -1,  90,  16.88/360);
+		driveToLocation(location,  400,  400,  -1,  200,  16.88/360);
 	}
 }
