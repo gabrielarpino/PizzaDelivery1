@@ -44,20 +44,14 @@ public class PizzaDelivery {
 
 	private void pickuppizza() { // Assigned to Sean
 		pickUpPizza pickup = new pickUpPizza();
-		// Call related functions
-		pickup.main();
 	}
 
 	private void drivetoroad() {	// Assigned to James
 		driveToRoad roaddriver = new driveToRoad();
-		// Call related functions
-		roaddriver.main();
 	}
 
 	private void followroadtohouse(house_num) {	// Assigned to Gabe
 		followRoadToHouse roadfollower = new followRoadToHouse(house_num);
-		//Call related functions
-		roadfollower.main(house_num);
 	}
 	
 	private void turntofacehouse(int side) {	// Assigned to Rob
@@ -66,14 +60,10 @@ public class PizzaDelivery {
 	
 	private void dropoffpizza() {	// Assigned to Sean
 		dropOffPizza laypizza = new dropOffPizza();
-		// Call related functions
-		laypizza.main();
 	}
 
 	private void drivetostart() {
 		driveToStart startdriver = new driveToStart();
-		// Call related functions
-		startdriver.main();
 	}
 
 	private void deliver() {

@@ -7,7 +7,7 @@ import lejos.hardware.sensor.EV3UltrasonicSensor;
 import lejos.hardware.Button;
 import lejos.hardware.lcd.*;
 
-public class followRoadToHouse{
+public class followRoadToHouse {
 
 	// Initiate Sensors/Motors
 	static EV3UltrasonicSensor ultrasonic = new EV3UltrasonicSensor(SensorPort.S1);
@@ -22,7 +22,7 @@ public class followRoadToHouse{
 	// Run P controller (will it shake too much)?
 	// How to know when get to house?
 	
-	public static void main(int desiredHouse) { 
+	public void followRoadToHouse(int desiredHouse) { 
 		EV3ColorSensor color = new EV3ColorSensor(SensorPort.S3);
 		LCD.clear();
 		double correction;
