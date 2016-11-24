@@ -20,7 +20,7 @@ public class pickuppizza {
 	rightMotor.rotate(forwardmove);
 	
 	//lifting pizza
-	armMotor.speed = 100;
+	armMotor.speed = armspeed;
 	armMotor.rotate = armup;
 	
 	//Turning to face forward
