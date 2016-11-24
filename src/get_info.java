@@ -9,11 +9,11 @@ public class get_info {
 		}
 		if (Button.LEFT.isDown()) {
 			pizza_loc = -1;
-			System.out.println("Pick up pizza on my left.");
+			System.out.println("Pick-up on left.");
 		}
 		else {
 			pizza_loc = 1;
-			System.out.println("Pick up pizza on my right.");
+			System.out.println("Pick-up on right.");
 		}
 		while (Button.LEFT.isDown() || Button.RIGHT.isDown()){
 		}
@@ -27,15 +27,15 @@ public class get_info {
 		}
 		if (Button.LEFT.isDown()) {
 			street = -1;
-			System.out.println("Deliver to street on the left.");
+			System.out.println("Left Street.");
 		}
 		else if (Button.ENTER.isDown()) {
 			street = 0;
-			System.out.println("Deliver to street in the center.");
+			System.out.println("Center Street.");
 		}
 		else {
 			street = 1;
-			System.out.println("Deliver to street on the right.");
+			System.out.println("Right Street.");
 		}
 		while (Button.LEFT.isDown() || Button.RIGHT.isDown() || Button.ENTER.isDown()){
 		}
@@ -49,11 +49,11 @@ public class get_info {
 		}
 		if (Button.LEFT.isDown()) {
 			side = -1;
-			System.out.println("Deliver to left side of the street.");
+			System.out.println("Left side.");
 		}
 		else {
 			side = 1;
-			System.out.println("Deliver to right side of the street.");
+			System.out.println("Right side.");
 		}
 		while (Button.LEFT.isDown() || Button.RIGHT.isDown()){
 		}
@@ -67,17 +67,19 @@ public class get_info {
 		}
 		if (Button.LEFT.isDown()) {
 			house_num = 1;
-			System.out.println("Deliver to first house.");
+			System.out.println("First house.");
 		}
 		else if (Button.ENTER.isDown()) {
 			house_num = 2;
-			System.out.println("Deliver to second house.");
+			System.out.println("Second house.");
 		}
 		else {
 			house_num = 3;
-			System.out.println("Deliver to third house.");
+			System.out.println("Third house.");
 		}
 		while (Button.LEFT.isDown() || Button.RIGHT.isDown() || Button.ENTER.isDown()){
+		}
+		while (Button.ENTER.isUp()){
 		}
 		return house_num;
 	}

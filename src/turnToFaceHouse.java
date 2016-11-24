@@ -10,7 +10,7 @@ import lejos.hardware.lcd.*;
 //Avg_rotation = 698 degrees/full rotation ==> 174.5 degrees/quarter rotation
 
 public class turnToFaceHouse {
-	public void main(int side) {
+	public turnToFaceHouse(int side) {
 		int turn = 200;
 		Motor.C.setSpeed(240);
 		Motor.B.setSpeed(240);
