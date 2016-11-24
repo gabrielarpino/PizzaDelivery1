@@ -38,9 +38,10 @@ public class PizzaDelivery {
 		house_num = info.get_house_num(); //1, 2, 3
 	}
 	
-//	private void driveToLocation(double[] pizzaCoords, int y_rotate_angle, int x_rotate_angle, int pizza_side, int turn_90_angle, double conversion_angle) { // Assigned to James
-//		drivetopizza driver = new drivetopizza(pizzaCoords, y_rotate_angle, x_rotate_angle,pizza_side, turn_90_angle, conversion_angle);
-//	}
+	private static void driveToLocation(double[] pizzaCoords, int y_rotate_angle, int x_rotate_angle, int pizza_side, int turn_90_angle, double conversion_angle) { // Assigned to James
+		drivetopizza driver = new drivetopizza();
+		pizzaCoords = driver.get_pizza_cords(pizzaCoords, y_rotate_angle, x_rotate_angle,pizza_side, turn_90_angle, conversion_angle);
+	}
 //
 //	private void pickuppizza() { // Assigned to Sean
 //		pickUpPizza pickup = new pickUpPizza();
@@ -54,9 +55,9 @@ public class PizzaDelivery {
 //		followRoadToHouse roadfollower = new followRoadToHouse(house_num);
 //	}
 //	
-	private static void turntofacehouse(int side) {	// Assigned to Rob
-		turnToFaceHouse housefacer = new turnToFaceHouse(side);
-	}
+//	private static void turntofacehouse(int side) {	// Assigned to Rob
+//		turnToFaceHouse housefacer = new turnToFaceHouse(side);
+//	}
 //	
 //	private void dropoffpizza() {	// Assigned to Sean
 //		dropOffPizza laypizza = new dropOffPizza();
@@ -79,9 +80,13 @@ public class PizzaDelivery {
 	public static void main(String[] args) {
 		//gatherinfo();
 		//delivery.deliver();
-		//driveToLocation([0, 0],  90,  90,  -1,  90,  16.88/360);
+		
 		System.out.println("Input info.");
 		gatherinfo();
-		turntofacehouse(side);
+//		turntofacehouse(side);
+		double [] location = new double[2];
+		location[0] = 0;
+		location[1] = 0;
+		driveToLocation(location,  90,  90,  -1,  90,  16.88/360);
 	}
 }
