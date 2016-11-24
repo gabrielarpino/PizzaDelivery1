@@ -60,9 +60,8 @@ public class PizzaDelivery {
 		roadfollower.main(house_num);
 	}
 	
-	private void turntofacehouse(side) {	// Assigned to Rob
+	private void turntofacehouse(int side) {	// Assigned to Rob
 		turnToFaceHouse housefacer = new turnToFaceHouse(side);
-		housefacer.main(side);
 	}
 	
 	private void dropoffpizza() {	// Assigned to Sean
@@ -90,6 +89,7 @@ public class PizzaDelivery {
 	public static void main(String[] args) {
 		//gatherinfo();
 		//delivery.deliver();
-		driveToLocation([0, 0],  90,  90,  -1,  90,  16.88/360);
+		//driveToLocation([0, 0],  90,  90,  -1,  90,  16.88/360);
+		
 	}
 }

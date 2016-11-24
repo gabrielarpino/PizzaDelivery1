@@ -1,9 +1,4 @@
-import lejos.hardware.motor.Motor;
-import lejos.hardware.motor.NXTRegulatedMotor;
-import lejos.hardware.port.SensorPort;
-import lejos.hardware.sensor.EV3ColorSensor;
-import lejos.hardware.sensor.EV3GyroSensor;
-import lejos.hardware.sensor.EV3UltrasonicSensor;
+import lejos.hardware.Button;
 
 public class get_info {
 
@@ -57,7 +52,7 @@ public class get_info {
 			System.out.println("Deliver to left side of the street.");
 		}
 		else {
-			pizza_loc = 1;
+			side = 1;
 			System.out.println("Deliver to right side of the street.");
 		}
 		while (Button.LEFT.isDown() || Button.RIGHT.isDown()){
