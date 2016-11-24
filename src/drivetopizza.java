@@ -7,7 +7,7 @@ import lejos.hardware.sensor.EV3UltrasonicSensor;
 
 public class drivetopizza
 {
-	public static double[] main(double[] pizzaCoords, int y_rotate_angle, int x_rotate_angle, int pizza_side, int turn_90_angle, double conversion_angle);
+	public drivetopizza(double[] pizzaCoords, int y_rotate_angle, int x_rotate_angle, int pizza_side, int turn_90_angle, double conversion_angle){
 	// assume that the robot is facing forward at origin
 	// pizzaCoords[x, y] contains x and y coordinates of robot on map
 	// y_rotate_angle: angle to rotoate motors to drive to y coordinate of pizza
@@ -17,6 +17,16 @@ public class drivetopizza
 	// conversion_angle: conversion from motor rotation angle to distance travelled by motor
 	// returns robot coordinates and robot facing left or right
 	{
+		// Initiate Sensors/Motors
+		static EV3UltrasonicSensor ultrasonic = new EV3UltrasonicSensor(SensorPort.S1);
+		static EV3ColorSensor color = new EV3ColorSensor(SensorPort.S2);
+		static EV3GyroSensor gyro = new EV3GyroSensor(SensorPort.S3);
+		
+		static NXTRegulatedMotor ultraSonicMotor = Motor.A;
+		static NXTRegulatedMotor leftMotor = Motor.B;
+		static NXTRegulatedMotor rightMotor = Motor.C;
+		static NXTRegulatedMotor armMotor = Motor.D;
+		
 		int[] angle_intitial = [leftMotor.getTachoCount, rightMotor.getTachoCount]; //intial angle position of motors		
 		rotatemotor(y_rotate_angle) // move to y coordinate of pizza
 		pizzaCoords[1] += distance_motor_travlled(angle_intitial, conversion_angle); //update y coordinate
@@ -27,7 +37,7 @@ public class drivetopizza
 		return pizzaCoords;
 	}
 	
-	public static void turn_robot(int turn, int turn_90_angle);
+	public void turn_robot(int turn, int turn_90_angle);
 	//turns robot given turn direction
 	{
 		if (turn == -1) //turn left
@@ -43,7 +53,7 @@ public class drivetopizza
 		return;
 	}
 
-	public static double distance_motor_travlled(int[] angle_intitial, double conversion_angle);
+	public double distance_motor_travlled(int[] angle_intitial, double conversion_angle);
 	// calcuates the distance the robot has travelled
 	{
 		int[] angle_change = new int[2]; //change in angle after driving motors
@@ -55,10 +65,12 @@ public class drivetopizza
 		return distance_travelled;
 	}
 
-	public static void rotatemotor(int angle);
+	public void rotatemotor(int angle);
 	{
 		leftMotor.rotateTo(angle, true); 
 		rightMotor.rotateTo(angle);
 		return;
 	}
+}
+	
 }
