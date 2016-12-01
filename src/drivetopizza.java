@@ -24,10 +24,10 @@ public class drivetopizza
 		pizzaCoords[1] += distance_motor_travlled(angle_intitial, conversion_angle); //update y coordinate
 		turn_robot(pizza_side, turn_90_angle); // turn robot to face correct pizza
 
-//		angle_intitial[0] = Motor.B.getTachoCount();
-//		angle_intitial[1] = Motor.C.getTachoCount(); //intial angle position of motors	
-//		rotatemotor(x_rotate_angle);	//move to x coordinate of pizza
-//		pizzaCoords[0] += distance_motor_travlled(angle_intitial, conversion_angle); //update x coordinate
+		angle_intitial[0] = Motor.B.getTachoCount();
+		angle_intitial[1] = Motor.C.getTachoCount(); //intial angle position of motors	
+		rotatemotor(x_rotate_angle);	//move to x coordinate of pizza
+		pizzaCoords[0] += distance_motor_travlled(angle_intitial, conversion_angle); //update x coordinate
 		return pizzaCoords;
 	}
 	
@@ -36,13 +36,13 @@ public class drivetopizza
 		//turns robot given turn direction		
 		if (turn == -1) //turn left
 		{
-			Motor.B.rotate(-turn_90_angle, true); 
-			Motor.C.rotate(turn_90_angle);
+			Motor.B.rotate(turn_90_angle, true); 
+			Motor.C.rotate(-turn_90_angle);
 		}
 		else //turn right
 		{			
-			Motor.B.rotate(turn_90_angle, true); 
-			Motor.C.rotate(-turn_90_angle);			
+			Motor.B.rotate(-turn_90_angle, true); 
+			Motor.C.rotate(turn_90_angle);			
 		}
 	}
 

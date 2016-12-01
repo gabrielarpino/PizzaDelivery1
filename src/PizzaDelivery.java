@@ -83,9 +83,12 @@ public class PizzaDelivery {
 //	}
 
 	public static void main(String[] args) {
+		Motor.B.setSpeed(200);
+		Motor.C.setSpeed(200);		
 		System.out.println("Input info.");
 		gatherinfo();
-		driveToLocation(pizzaCoords,  400,  400,  pizza_side,  180, conversion_angle );
+		//900 180
+		driveToLocation(pizzaCoords,  400,  -850,  pizza_side,  185, conversion_angle );
 		System.out.println(Arrays.toString(pizzaCoords));		
 		
 		//delivery.deliver();
