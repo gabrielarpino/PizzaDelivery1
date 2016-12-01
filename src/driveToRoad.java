@@ -7,7 +7,7 @@ import lejos.hardware.sensor.EV3UltrasonicSensor;
 
 public class drivetoroad
 {
-	public static double[] main(double[] pizzaCoords, double[] targetcoord, double closeness, double conversion_angle, int turn_90_angle, double conversion_distance, double threshold, int threshold_rotate, int sample_rate);
+	public static double[] driving(double[] pizzaCoords, double[] targetcoord, double closeness, double conversion_angle, int turn_90_angle, double conversion_distance, double threshold, int threshold_rotate, int sample_rate);
 	// assume that the robot is facing forward on the inside of the pizza to begin with
 	// pizzaCoords[x, y] contains x and y coordinates of robot on map
 	// targetcoord contains x and y coordinates of target position
@@ -21,7 +21,7 @@ public class drivetoroad
 	// returns x and y coordinates of robot and robot facing forward
 	{
 		int turn; // turn direction, 1 == right, -1 == left
-		double return_array = new double[2]; // array holder for function output
+		double[] return_array = new double[2]; // array holder for function output
 		double max_distance; //max distance the robot can travel sideways 
 		while (pizzaCoords[1] < targetcoord[1]) // exits when target y coordinate is reached
 		{
@@ -70,23 +70,22 @@ public class drivetoroad
 		while (closeness < distance) // only exit once distance from barrier is within closeness or target coordinate is reached
 		{
 			Thread.sleep(sample_rate); // delay of 0.1 seconds
-			y_coord += distance_motor_travlled(angle_intitial, conversion_angle)// add distance travlled
+			y_coord += distance_motor_travlled(angle_intitial, conversion_angle);// add distance travlled
 			if (y_coord >= targetcoord) //check if y coordinate is at target y coordinate
 			{
 				break; // exit loop if true
 			}
-			angle_intitial = [leftMotor.getTachoCount, rightMotor.getTachoCount]; // reset intial angle
+			angle_intitial = {leftMotor.getTachoCount, rightMotor.getTachoCount}; // reset intial angle
 			distance = (double) sonic.fetchSample(sonicsample, 0);//  fetch distance from barrier			
 		}
 		// stop motors once closeness to barrier or target coordinate is reached
 		motors(0);//stop motors
-		return y_coord;
 	}
 
 	public static double drive_sideways_close(double x_coord, double closeness, double conversion_angle, int turn, double max_distance, double threshold, int threshold_rotate, int sample_rate);
 	//drives sideways until robot reaches roadblock or can drive forward again
 	{
-		int[] angle_intitial = [leftMotor.getTachoCount, rightMotor.getTachoCount]; //intial angle position of motors
+		int[] angle_intitial = {leftMotor.getTachoCount, rightMotor.getTachoCount}; //intial angle position of motors
 		double distance_barrier; // distance of robot from barrier
 		double distance_travelled = 0;
 		ultraSonicMotor.rotateTo(turn*90); // turn sensor to face perpendicular to robot, in positive y direction
@@ -103,7 +102,7 @@ public class drivetoroad
 				break; // exit loop if true
 			}
 			// reset intial angle
-			angle_intitial = [leftMotor.getTachoCount, rightMotor.getTachoCount]; // reset intial angle
+			angle_intitial = {leftMotor.getTachoCount, rightMotor.getTachoCount}; // reset intial angle
 			distance_barrier = (double) sonic.fetchSample(sonicsample, 0);//  fetch distance from barrier		
 		}
 		// stop motors once closeness or target coordinate is reached
@@ -114,7 +113,7 @@ public class drivetoroad
 			rightMotor.rotateTo(threshold_rotate);		  			
    		}
 		distance_travelled += distance_motor_travlled(angle_intitial, conversion_angle); // convert angle change to a distance travelled to update y coodinate
-		x_coord += turn*distance_travelled
+		x_coord += turn*distance_travelled;
 		ultraSonicMotor.rotateTo(-90*turn); // turn sensor back to face parrallel as robot
 		return x_coord;		
    	}
@@ -141,7 +140,7 @@ public class drivetoroad
 			max_distance = distance_right;
 		}
 
-		return [turn, max_distance];
+		return {turn, max_distance};
 	}
 
 

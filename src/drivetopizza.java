@@ -16,7 +16,10 @@ public class drivetopizza
 //		static EV3UltrasonicSensor ultrasonic = new EV3UltrasonicSensor(SensorPort.S1);
 //		static EV3ColorSensor color = new EV3ColorSensor(SensorPort.S2);
 //		static EV3GyroSensor gyro = new EV3GyroSensor(SensorPort.S3);
-		
+		Motor.B.setSpeed(100);
+		Motor.C.setSpeed(100);		
+		Motor.D.setSpeed(50);	
+
 		int[] angle_intitial = new int[2];
 		angle_intitial[0] = Motor.B.getTachoCount(); //initial angle position of motors	
 		angle_intitial[1] = Motor.C.getTachoCount();
@@ -28,6 +31,8 @@ public class drivetopizza
 		angle_intitial[1] = Motor.C.getTachoCount(); //intial angle position of motors	
 		rotatemotor(x_rotate_angle);	//move to x coordinate of pizza
 		pizzaCoords[0] += distance_motor_travlled(angle_intitial, conversion_angle); //update x coordinate
+		Motor.D.rotate(-90);
+		turn_robot(-pizza_side, turn_90_angle); // turn robot to face correct pizza		
 		return pizzaCoords;
 	}
 	
