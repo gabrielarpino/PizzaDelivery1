@@ -9,8 +9,8 @@ public class dropOffPizza {
 		
 		
 		//dropping pizza
-		armMotor.speed = armspeed;
-		armMotor.rotate = armdown;
+		Motor.D.setSpeed(armspeed);
+		Motor.D.rotate(armdown,true);
 }
 
 }
