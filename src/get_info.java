@@ -79,8 +79,6 @@ public class get_info {
 		}
 		while (Button.LEFT.isDown() || Button.RIGHT.isDown() || Button.ENTER.isDown()){
 		}
-		while (Button.ENTER.isUp()){
-		}
 		return house_num;
 	}
 

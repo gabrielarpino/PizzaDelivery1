@@ -1,11 +1,4 @@
 import lejos.hardware.motor.Motor;
-import lejos.hardware.motor.NXTRegulatedMotor;
-import lejos.hardware.port.SensorPort;
-import lejos.hardware.sensor.EV3ColorSensor;
-import lejos.hardware.sensor.EV3GyroSensor;
-import lejos.hardware.sensor.EV3UltrasonicSensor;
-import lejos.hardware.Button;
-import lejos.hardware.lcd.*;
 
 public class drivetopizza
 {
@@ -28,8 +21,9 @@ public class drivetopizza
 		angle_intitial[0] = Motor.B.getTachoCount(); //initial angle position of motors	
 		angle_intitial[1] = Motor.C.getTachoCount();
 		rotatemotor(y_rotate_angle); // move to y coordinate of pizza
-	//	pizzaCoords[1] += distance_motor_travlled(angle_intitial, conversion_angle); //update y coordinate
+		pizzaCoords[1] += distance_motor_travlled(angle_intitial, conversion_angle); //update y coordinate
 		turn_robot(pizza_side, turn_90_angle); // turn robot to face correct pizza
+
 //		angle_intitial[0] = Motor.B.getTachoCount();
 //		angle_intitial[1] = Motor.C.getTachoCount(); //intial angle position of motors	
 //		rotatemotor(x_rotate_angle);	//move to x coordinate of pizza
@@ -39,19 +33,17 @@ public class drivetopizza
 	
 	public void turn_robot(int turn, int turn_90_angle)
 	{
-		Motor.B.rotateTo(turn_90_angle, true); 
-		Motor.C.rotateTo(-turn_90_angle);
 		//turns robot given turn direction		
-//		if (turn == -1) //turn left
-//		{
-//			Motor.B.rotateTo(turn_90_angle, true); 
-//			Motor.C.rotateTo(-turn_90_angle);
-//		}
-//		else //turn right
-//		{			
-//			Motor.B.rotateTo(-turn_90_angle, true); 
-//			Motor.C.rotateTo(turn_90_angle);			
-//		}
+		if (turn == -1) //turn left
+		{
+			Motor.B.rotate(-turn_90_angle, true); 
+			Motor.C.rotate(turn_90_angle);
+		}
+		else //turn right
+		{			
+			Motor.B.rotate(turn_90_angle, true); 
+			Motor.C.rotate(-turn_90_angle);			
+		}
 	}
 
 	public double distance_motor_travlled(int[] angle_intitial, double conversion_angle)
@@ -69,8 +61,8 @@ public class drivetopizza
 
 	public void rotatemotor(int angle)
 	{
-		Motor.B.rotateTo(angle, true); 
-		Motor.C.rotateTo(angle);
+		Motor.B.rotate(angle, true); 
+		Motor.C.rotate(angle);
 	}
 }
 	
