@@ -1,4 +1,5 @@
 import lejos.hardware.motor.Motor;
+import lejos.hardware.sensor.EV3GyroSensor;
 
 public class drivetopizza
 {
@@ -16,9 +17,22 @@ public class drivetopizza
 //		static EV3UltrasonicSensor ultrasonic = new EV3UltrasonicSensor(SensorPort.S1);
 //		static EV3ColorSensor color = new EV3ColorSensor(SensorPort.S2);
 //		static EV3GyroSensor gyro = new EV3GyroSensor(SensorPort.S3);
+<<<<<<< HEAD
 		Motor.B.setSpeed(100);
 		Motor.C.setSpeed(100);		
 		Motor.D.setSpeed(50);	
+=======
+
+		// Initialize the gyro sensor
+		public static EV3GyroSensor gyro;
+		public float[] gyro_sample;
+		gyro.getAngleMode(); 		// Set to angle mode
+		int gyro_sample_size = gyro.sampleSize(); 
+		gyro_sample = new float[gyro_sample_size];
+
+		// Calibrate gyro sensor
+		gyro_cal();
+>>>>>>> cd76af5cdf6d940b3627e4754efa4214c5f38b81
 
 		int[] angle_intitial = new int[2];
 		angle_intitial[0] = Motor.B.getTachoCount(); //initial angle position of motors	
@@ -38,16 +52,30 @@ public class drivetopizza
 	
 	public void turn_robot(int turn, int turn_90_angle)
 	{
+
+		
+		return gyro_sample[0] % 360;
+
 		//turns robot given turn direction		
 		if (turn == -1) //turn left
 		{
-			Motor.B.rotate(turn_90_angle, true); 
-			Motor.C.rotate(-turn_90_angle);
+			gyro.getAngleMode().fetchSample(gyro_sample,0);
+			while ( (gyro_sample[0] % 360) != 90){
+				gyro.getAngleMode().fetchSample(gyro_sample,0);
+				Motor.B.rotate(0.1*(gyro_sample[0] % 360), true); // Multiply rotation by a proportionality constant proportional to gyro, essentially P controller for gyro
+				Motor.C.rotate(-0.1*(gyro_sample[0] % 360));
+
+			}
 		}
 		else //turn right
 		{			
-			Motor.B.rotate(-turn_90_angle, true); 
-			Motor.C.rotate(turn_90_angle);			
+			gyro.getAngleMode().fetchSample(gyro_sample,0);
+			while ( (gyro_sample[0] % 360) != -90){
+				gyro.getAngleMode().fetchSample(gyro_sample,0);
+				Motor.B.rotate(-0.1*(gyro_sample[0] % 360), true); 
+				Motor.C.rotate(0.1*(gyro_sample[0] % 360));
+
+			}			
 		}
 	}
 
@@ -68,6 +96,20 @@ public class drivetopizza
 	{
 		Motor.B.rotate(angle, true); 
 		Motor.C.rotate(angle);
+	}
+
+	public void gyro_cal() {
+		System.out.println("Hold for gyro calibration");
+		Delay.msDelay(500);
+		gyro.reset(); 					// Reset the gyro
+
+		// Wait for gyro to finish calibrating
+		// will output NaN until calibration complete
+		while (theta() == Float.NaN){
+			Delay.msDelay(40);
+		}
+
+		System.out.println("Gyro calibration complete");
 	}
 }
 	
