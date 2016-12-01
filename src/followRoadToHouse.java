@@ -25,42 +25,56 @@ public class followRoadToHouse {
 	public void followRoadToHouse(int desiredHouse) { 
 
 		// Define input sensors
-		static EV3UltrasonicSensor ultrasonic = new EV3UltrasonicSensor(SensorPort.S1);
+		static EV3UltrasonicSensor sonic = new EV3UltrasonicSensor(SensorPort.S1);
 		static EV3ColorSensor color = new EV3ColorSensor(SensorPort.S2);
-		ultrasonic.
+		public float[] sonicsample;
 
-		int sampleSize = color.sampleSize();
-		float[] redsample = new float[sampleSize];
-		color.getRedMode().fetchSample(redsample, 0); //not sure if RedMode matters
 
 		LCD.clear();
 		double correction;
 
 		int currentHouse = 0;
 		int atDesiredHouse = 0;
-		int threshold = 50;
+		int sonicthreshold = 50;
 
 		while (!atDesiredHouse) 
 		{
-			// Run P control
+			// Get Ultrasonic and color sensor readings
 
+			int sonic_sampleSize = sonic.sampleSize();
+			sonicsample = new float[sonic_sampleSize];
+			sonic.fetchSample(sonicsample, 0);
 			int sampleSize = color.sampleSize();
 			float[] redsample = new float[sampleSize];
 			color.getRedMode().fetchSample(redsample, 0); //not sure if RedMode matters
-			//added code
-			double desired = 0.25;
-			double Kp = 20000;
+
+			//Run P control
+
 			
+			double desired = 0.25;
+			double Kp = 20000;			
 			double actual = redsample[0]; // not sure if sampleSize is the colour sensor value
 			double error = desired - actual;
 			correction = error*Kp; //negative
 			turn(correction);
-			//end added code
 			LCD.clear();
 			//System.out.println(redsample[0]);
 			System.out.println(correction);
 
-			currentHouse = houseUpdate(ultrasonic, currentHouse, threshold)
+			// Check if at House
+
+			if (sonicsample[0] < threshold) {		// Case where the ultrasonic sensor detects a house
+
+				if (currentHouse == desiredHouse){
+
+					atDesiredHouse = 1;
+
+				}
+				else{
+					currentHouse = currentHouse + 1;
+				}
+
+			}
 
 
 		}
