@@ -12,7 +12,7 @@ public class PizzaDelivery {
 	// Initiate Sensors/Motors
 	static EV3UltrasonicSensor ultrasonic = new EV3UltrasonicSensor(SensorPort.S1);
 	static EV3ColorSensor color = new EV3ColorSensor(SensorPort.S2);
-	static EV3GyroSensor gyro = new EV3GyroSensor(SensorPort.S3);
+//	static EV3GyroSensor gyro = new EV3GyroSensor(SensorPort.S3);
 	
 //	static EV3RegulatedMotor ultraSonicMotor = Motor.A;
 //	static EV3RegulatedMotor leftMotor = Motor.B;
@@ -50,11 +50,11 @@ public class PizzaDelivery {
 		pizzaCoords = driver.get_pizza_cords(pizzaCoords, y_rotate_angle, x_rotate_angle,pizza_side, turn_90_angle, conversion_angle);
 	}
 
-	private void drivetopath(double[] pizzaCoords, double[] targetcoord, double closeness, double conversion_angle, int turn_90_angle, double conversion_distance, double threshold, int threshold_rotate, int sample_rate)
-	{	// Assigned to James
-		drivetoroad roaddriver = new drivetoroad();
-		pizzaCoords = roaddriver.driving( pizzaCoords,  targetcoord, closeness, conversion_angle, turn_90_angle, conversion_distance, threshold, threshold_rotate, sample_rate);
-	}
+//	private void drivetopath(double[] pizzaCoords, double[] targetcoord, double closeness, double conversion_angle, int turn_90_angle, double conversion_distance, double threshold, int threshold_rotate, int sample_rate)
+//	{	// Assigned to James
+//		drivetoroad roaddriver = new drivetoroad();
+//		pizzaCoords = roaddriver.driving( pizzaCoords,  targetcoord, closeness, conversion_angle, turn_90_angle, conversion_distance, threshold, threshold_rotate, sample_rate);
+//	}
 
 //	private void followroadtohouse(house_num) {	// Assigned to Gabe
 //		followRoadToHouse roadfollower = new followRoadToHouse(house_num);
@@ -100,7 +100,7 @@ public class PizzaDelivery {
 		}
 //		//900 180
 		driveToLocation(pizzaCoords,  400,  -850,  pizza_side,  turn_90_angle, conversion_angle );	
-		drivetopath(pizzaCoords, pathCoords, closeness, conversion_angle,turn_90_angle, 1, 1, 400, 10);
+		//drivetopath(pizzaCoords, pathCoords, closeness, conversion_angle,turn_90_angle, 1, 1, 400, 10);
 		//delivery.deliver();
 //		turntofacehouse(side);
 
