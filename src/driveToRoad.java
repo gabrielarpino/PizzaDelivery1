@@ -25,6 +25,7 @@ public class drivetoroad
 		double max_distance; //max distance the robot can travel sideways 
 		while (pizzaCoords[1] < targetcoord[1]) // exits when target y coordinate is reached
 		{
+
 			pizzaCoords[1] = drive_fwd_close(pizzaCoords[1], closeness, conversion_angle, targetcoord[1], sample_rate); //drives forwards towards roadblock until robot reaches a certain closeness
 				if (pizzaCoords[1] >= targetcoord[1]) //checks if robot is at target y coordinate
 				{
@@ -53,7 +54,11 @@ public class drivetoroad
 		}
 		turn_robot(turn, turn_90_angle); // turn robot
 		pizzaCoords[0] = drive_sideways_close(pizzaCoords[0], closeness, conversion_angle, turn, max_distance, threshold*1000000, threshold_rotate, sample_rate); //drives sideways until robot reaches target x coordinate
-		//pizzaCoords[0] = drive_sideways_destination(pizzaCoords[0], targetcoord[0], conversion_angle, turn);  
+		//pizzaCoords[0] = drive_sideways_destination(pizzaCoords[0], targetcoord[0], conversion_angle, turn);
+
+		xcoordinate = Math.cos(pizzaCoords[0]);		// Gather the actual x and y position of robot
+		ycoordinate = Math.sin(pizzaCoords[1]);
+
 		turn = flip_turn(turn);
 		turn_robot(turn, turn_90_angle); //turn to face forward at target x and y coordinate
 		return pizzaCoords; 
