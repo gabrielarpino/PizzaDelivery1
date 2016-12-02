@@ -1,8 +1,18 @@
+import java.util.Arrays;
+import lejos.hardware.Button;
 import lejos.hardware.motor.Motor;
+//import lejos.hardware.motor.EV3RegulatedMotor;
+import lejos.hardware.port.SensorPort;
+import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.hardware.sensor.EV3GyroSensor;
+import lejos.hardware.sensor.EV3UltrasonicSensor;
+import lejos.utility.Delay;
 
 public class drivetopizza
 {
+	
+	static EV3GyroSensor gyro = new EV3GyroSensor(SensorPort.S3);
+	
 	public double[] get_pizza_cords(double[] pizzaCoords, int y_rotate_angle, int x_rotate_angle, int pizza_side, int turn_90_angle, double conversion_angle)
 	{
 	// assume that the robot is facing forward at origin
@@ -17,10 +27,12 @@ public class drivetopizza
 //		static EV3UltrasonicSensor ultrasonic = new EV3UltrasonicSensor(SensorPort.S1);
 //		static EV3ColorSensor color = new EV3ColorSensor(SensorPort.S2);
 //		static EV3GyroSensor gyro = new EV3GyroSensor(SensorPort.S3);
+		Motor.B.setSpeed(100);
+		Motor.C.setSpeed(100);		
+		Motor.D.setSpeed(50);	
 
 		// Initialize the gyro sensor
-		public static EV3GyroSensor gyro;
-		public float[] gyro_sample;
+		float[] gyro_sample;
 		gyro.getAngleMode(); 		// Set to angle mode
 		int gyro_sample_size = gyro.sampleSize(); 
 		gyro_sample = new float[gyro_sample_size];
@@ -39,14 +51,19 @@ public class drivetopizza
 		angle_intitial[1] = Motor.C.getTachoCount(); //intial angle position of motors	
 		rotatemotor(x_rotate_angle);	//move to x coordinate of pizza
 		pizzaCoords[0] += distance_motor_travlled(angle_intitial, conversion_angle); //update x coordinate
+		Motor.D.rotate(-90);
+		turn_robot(-pizza_side, turn_90_angle); // turn robot to face correct pizza		
 		return pizzaCoords;
 	}
 	
 	public void turn_robot(int turn, int turn_90_angle)
 	{
-
 		
-		return gyro_sample[0] % 360;
+		float[] gyro_sample;
+		gyro.getAngleMode(); 		// Set to angle mode
+		int gyro_sample_size = gyro.sampleSize(); 
+		gyro_sample = new float[gyro_sample_size];
+
 
 		//turns robot given turn direction		
 		if (turn == -1) //turn left
@@ -54,8 +71,9 @@ public class drivetopizza
 			gyro.getAngleMode().fetchSample(gyro_sample,0);
 			while ( (gyro_sample[0] % 360) != 90){
 				gyro.getAngleMode().fetchSample(gyro_sample,0);
-				Motor.B.rotate(0.1*(gyro_sample[0] % 360), true); // Multiply rotation by a proportionality constant proportional to gyro, essentially P controller for gyro
-				Motor.C.rotate(-0.1*(gyro_sample[0] % 360));
+				int rotation = (int)(0.5*(gyro_sample[0] % 360));
+				Motor.B.rotate(rotation, true); // Multiply rotation by a proportionality constant proportional to gyro, essentially P controller for gyro
+				Motor.C.rotate(-rotation);
 
 			}
 		}
@@ -64,8 +82,9 @@ public class drivetopizza
 			gyro.getAngleMode().fetchSample(gyro_sample,0);
 			while ( (gyro_sample[0] % 360) != -90){
 				gyro.getAngleMode().fetchSample(gyro_sample,0);
-				Motor.B.rotate(-0.1*(gyro_sample[0] % 360), true); 
-				Motor.C.rotate(0.1*(gyro_sample[0] % 360));
+				int rotation = (int)(0.5*(gyro_sample[0] % 360));
+				Motor.B.rotate(rotation, true); 
+				Motor.C.rotate(-rotation);
 
 			}			
 		}
@@ -91,13 +110,19 @@ public class drivetopizza
 	}
 
 	public void gyro_cal() {
+		
+		float[] gyro_sample;
+		gyro.getAngleMode(); 		// Set to angle mode
+		int gyro_sample_size = gyro.sampleSize(); 
+		gyro_sample = new float[gyro_sample_size];
+		
 		System.out.println("Hold for gyro calibration");
 		Delay.msDelay(500);
 		gyro.reset(); 					// Reset the gyro
 
 		// Wait for gyro to finish calibrating
 		// will output NaN until calibration complete
-		while (theta() == Float.NaN){
+		while ((gyro_sample[0] % 360) == Float.NaN){
 			Delay.msDelay(40);
 		}
 

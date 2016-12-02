@@ -12,7 +12,7 @@ public class PizzaDelivery {
 	// Initiate Sensors/Motors
 	static EV3UltrasonicSensor ultrasonic = new EV3UltrasonicSensor(SensorPort.S1);
 	static EV3ColorSensor color = new EV3ColorSensor(SensorPort.S2);
-	static EV3GyroSensor gyro = new EV3GyroSensor(SensorPort.S3);
+//	static EV3GyroSensor gyro = new EV3GyroSensor(SensorPort.S3);
 	
 //	static EV3RegulatedMotor ultraSonicMotor = Motor.A;
 //	static EV3RegulatedMotor leftMotor = Motor.B;
@@ -20,7 +20,7 @@ public class PizzaDelivery {
 //	static EV3RegulatedMotor armMotor = Motor.D;
 	
 // Define input variables
-	public static double pathCoords[];
+	public static double[] pathCoords = {0, 10};
 	public static double[] pizzaCoords = {0, 0};
 	public static int pizza_side;
 	public static int street;
@@ -28,6 +28,8 @@ public class PizzaDelivery {
 	public static int house_num;
 	public static double currentPose[];
 	public static double conversion_angle = 16.88/360;
+	public static int turn_90_angle = 185;
+	public static double closeness = 0.5;
 
 	private static void gatherinfo() 
 	{ // Assigned to Rob
@@ -48,14 +50,12 @@ public class PizzaDelivery {
 		pizzaCoords = driver.get_pizza_cords(pizzaCoords, y_rotate_angle, x_rotate_angle,pizza_side, turn_90_angle, conversion_angle);
 	}
 
-//	private void pickuppizza() { // Assigned to Sean
-//		pickUpPizza pickup = new pickUpPizza();
+//	private void drivetopath(double[] pizzaCoords, double[] targetcoord, double closeness, double conversion_angle, int turn_90_angle, double conversion_distance, double threshold, int threshold_rotate, int sample_rate)
+//	{	// Assigned to James
+//		drivetoroad roaddriver = new drivetoroad();
+//		pizzaCoords = roaddriver.driving( pizzaCoords,  targetcoord, closeness, conversion_angle, turn_90_angle, conversion_distance, threshold, threshold_rotate, sample_rate);
 //	}
-//
-//	private void drivetoroad() {	// Assigned to James
-//		driveToRoad roaddriver = new driveToRoad();
-//	}
-//
+
 //	private void followroadtohouse(house_num) {	// Assigned to Gabe
 //		followRoadToHouse roadfollower = new followRoadToHouse(house_num);
 //	}
@@ -83,14 +83,24 @@ public class PizzaDelivery {
 //	}
 
 	public static void main(String[] args) {
-		Motor.B.setSpeed(200);
-		Motor.C.setSpeed(200);		
+
 		System.out.println("Input info.");
 		gatherinfo();
-		//900 180
-		driveToLocation(pizzaCoords,  400,  -850,  pizza_side,  185, conversion_angle );
-		System.out.println(Arrays.toString(pizzaCoords));		
-		
+		if (street == -1)
+		{
+			pathCoords[0] = -2;
+		}
+		if (street == 0)
+		{
+			pathCoords[0] = 0;
+		}
+		if (street == 1)
+		{
+			pathCoords[0] = 2;
+		}
+//		//900 180
+		driveToLocation(pizzaCoords,  400,  -850,  pizza_side,  turn_90_angle, conversion_angle );	
+		//drivetopath(pizzaCoords, pathCoords, closeness, conversion_angle,turn_90_angle, 1, 1, 400, 10);
 		//delivery.deliver();
 //		turntofacehouse(side);
 
